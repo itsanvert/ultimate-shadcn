@@ -1,12 +1,25 @@
 import {
+  BarChart3,
   Calendar,
+  ChevronDown,
+  ChevronRight,
   ChevronUp,
+  CreditCard,
+  FileText,
+  FolderOpen,
   Home,
   Inbox,
+  LayoutDashboard,
+  LogOut,
+  MessageSquare,
   Plus,
-  Projector,
   Search,
+  Settings,
+  Shield,
+  Star,
+  Users,
   UserIcon,
+  Zap,
 } from "lucide-react";
 import {
   Sidebar,
@@ -40,124 +53,180 @@ import {
   CollapsibleTrigger,
 } from "./ui/collapsible";
 
-const items = [
+// Types for better type safety
+interface MenuItem {
+  title: string;
+  url: string;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: string;
+  isActive?: boolean;
+}
+
+interface MenuGroup {
+  label: string;
+  items: MenuItem[];
+}
+
+// Main navigation items
+const mainNavItems: MenuItem[] = [
   {
-    title: "Home",
-    url: "/",
-    icon: Home,
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: LayoutDashboard,
+    isActive: true,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-    badge: "10",
+    title: "Projects",
+    url: "/projects",
+    icon: FolderOpen,
+  },
+  {
+    title: "Analytics",
+    url: "/analytics",
+    icon: BarChart3,
+  },
+  {
+    title: "Messages",
+    url: "/messages",
+    icon: MessageSquare,
+    badge: "12",
   },
   {
     title: "Calendar",
     url: "/calendar",
     icon: Calendar,
   },
+];
+
+// Workspace items
+const workspaceItems: MenuItem[] = [
   {
-    title: "Search",
-    url: "/search",
-    icon: Search,
+    title: "Team Members",
+    url: "/team",
+    icon: Users,
+  },
+  {
+    title: "Documents",
+    url: "/documents",
+    icon: FileText,
+  },
+  {
+    title: "Billing",
+    url: "/billing",
+    icon: CreditCard,
   },
 ];
 
-const projectMenuItems = [
+// Recent projects
+const recentProjects: MenuItem[] = [
   {
-    title: "See All Projects",
-    url: "/#",
-    icon: Projector,
+    title: "Website Redesign",
+    url: "/projects/website-redesign",
+    icon: Star,
   },
   {
-    title: "Add Project",
-    url: "/#",
-    icon: Plus,
+    title: "Mobile App",
+    url: "/projects/mobile-app",
+    icon: Zap,
+  },
+  {
+    title: "API Integration",
+    url: "/projects/api-integration",
+    icon: Shield,
   },
 ];
 
 const AppSidebar = () => {
   return (
-    <Sidebar collapsible="icon" side="left">
+    <Sidebar collapsible="icon" side="left" className="border-r">
       {/* HEADER */}
-      <SidebarHeader>
+      <SidebarHeader className="border-b border-sidebar-border">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="/">
-                <Image src="/next.svg" alt="logo" width={20} height={20} />
-                <span className="ml-2">Shadcn Ultimate</span>
+            <SidebarMenuButton asChild size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+              <Link href="/" className="flex items-center gap-2 font-semibold">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                  <Zap className="size-4" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-semibold">Shadcn Pro</span>
+                  <span className="truncate text-xs text-muted-foreground">Enterprise</span>
+                </div>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
 
-      <SidebarSeparator />
-
       {/* CONTENT */}
       <SidebarContent>
-        {/* Application Group */}
+        {/* Main Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Main Navigation</SidebarGroupLabel>
           <SidebarMenu>
-            {items.map((item) => (
+            {mainNavItems.map((item) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton 
+                  asChild 
+                  isActive={item.isActive}
+                  tooltip={item.title}
+                >
                   <Link href={item.url} className="flex items-center gap-2">
-                    <item.icon className="h-4 w-4" />
+                    <item.icon className="size-4" />
                     <span>{item.title}</span>
                   </Link>
                 </SidebarMenuButton>
                 {item.badge && (
-                  <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>
+                  <SidebarMenuBadge className="bg-red-500 text-white">
+                    {item.badge}
+                  </SidebarMenuBadge>
                 )}
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
         </SidebarGroup>
 
-        {/* Project Group */}
+        <SidebarSeparator />
+
+        {/* Workspace Section */}
         <SidebarGroup>
-          <SidebarGroupLabel>Project</SidebarGroupLabel>
-          <SidebarGroupAction>
-            <Plus /> <span className="sr-only">Add Project</span>
+          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+          <SidebarGroupAction title="Add workspace">
+            <Plus className="size-4" />
+            <span className="sr-only">Add workspace</span>
           </SidebarGroupAction>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {projectMenuItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon />
-                      {item.title}
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
+          <SidebarMenu>
+            {workspaceItems.map((item) => (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton asChild tooltip={item.title}>
+                  <Link href={item.url} className="flex items-center gap-2">
+                    <item.icon className="size-4" />
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
         </SidebarGroup>
 
-        {/* Collapsible Group */}
+        {/* Recent Projects - Collapsible */}
         <Collapsible defaultOpen className="group/collapsible">
           <SidebarGroup>
             <SidebarGroupLabel asChild>
-              <CollapsibleTrigger className="flex items-center">
-                Collapsible Group
-                <ChevronUp className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+              <CollapsibleTrigger className="flex w-full items-center gap-2 rounded-md p-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground [&[data-state=open]>svg]:rotate-90">
+                Recent Projects
+                <ChevronRight className="ml-auto size-4 transition-transform" />
               </CollapsibleTrigger>
             </SidebarGroupLabel>
             <CollapsibleContent>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {projectMenuItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild>
-                        <Link href={item.url}>
-                          <item.icon />
-                          {item.title}
+                  {recentProjects.map((project) => (
+                    <SidebarMenuItem key={project.title}>
+                      <SidebarMenuButton asChild tooltip={project.title}>
+                        <Link href={project.url} className="flex items-center gap-2">
+                          <project.icon className="size-4" />
+                          <span className="truncate">{project.title}</span>
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -168,38 +237,17 @@ const AppSidebar = () => {
           </SidebarGroup>
         </Collapsible>
 
-        {/* Nested Items */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Nested Items</SidebarGroupLabel>
+        {/* Quick Actions */}
+        <SidebarGroup className="mt-auto">
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/#">
-                    <Projector />
-                    See All Projects
+                <SidebarMenuButton asChild tooltip="Settings">
+                  <Link href="/settings" className="flex items-center gap-2">
+                    <Settings className="size-4" />
+                    <span>Settings</span>
                   </Link>
                 </SidebarMenuButton>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuSubButton asChild>
-                      <Link href="/#">
-                        <Plus />
-                        Add Project
-                      </Link>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuSubButton asChild>
-                      <Link href="/#">
-                        <Plus />
-                        Add Category
-                      </Link>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
@@ -207,22 +255,47 @@ const AppSidebar = () => {
       </SidebarContent>
 
       {/* FOOTER */}
-      <SidebarFooter>
-        <SidebarMenuItem>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton>
-                <UserIcon className="h-4 w-4" />
-                John Doe <ChevronUp className="ml-auto" />
-              </SidebarMenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Account</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Sign out</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </SidebarMenuItem>
+      <SidebarFooter className="border-t border-sidebar-border">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton
+                  size="lg"
+                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                >
+                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                    <UserIcon className="size-4" />
+                  </div>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-semibold">John Doe</span>
+                    <span className="truncate text-xs text-muted-foreground">john@company.com</span>
+                  </div>
+                  <ChevronUp className="ml-auto size-4" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                side="bottom"
+                align="end"
+                sideOffset={4}
+              >
+                <DropdownMenuItem className="gap-2">
+                  <UserIcon className="size-4" />
+                  Account
+                </DropdownMenuItem>
+                <DropdownMenuItem className="gap-2">
+                  <Settings className="size-4" />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem className="gap-2 text-red-600">
+                  <LogOut className="size-4" />
+                  Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   );
