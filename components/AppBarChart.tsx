@@ -12,11 +12,11 @@ import {
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "#2563eb",
+    color: "var(--chart-1)",
   },
   mobile: {
     label: "Mobile",
-    color: "#60a5fa",
+    color: "var(--chart-2)",
   },
 } satisfies ChartConfig;
 const chartData = [

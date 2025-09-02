@@ -1,4 +1,5 @@
 import { Item } from "@/components/CardList";
+import { todos } from "@/components/TodoList";
 
 export const popularContent: Item[] = [
   {
@@ -83,4 +84,14 @@ export const latestTransactions: Item[] = [
       "https://images.pexels.com/photos/1680175/pexels-photo-1680175.jpeg?auto=compress&cs=tinysrgb&w=800",
     count: 1400,
   },
+];
+export const todoItems: todos[] = [
+  { id: "item1", text: "Finish project report" },
+  { id: "item2", text: "Prepare for meeting with client" },
+  { id: "item3", text: "Review pull requests" },
+  { id: "item4", text: "Plan team workshop" },
+  { id: "item5", text: "Refactor old components" },
+  { id: "item6", text: "Organize design assets" },
+  { id: "item7", text: "Update documentation" },
+  { id: "item8", text: "Fix bugs in dashboard" },
 ];

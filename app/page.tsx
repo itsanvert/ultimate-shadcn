@@ -3,7 +3,7 @@ import AppBarChart from "@/components/AppBarChart";
 import AppPieChart from "@/components/AppPieChart";
 import CardList from "@/components/CardList";
 import TodoList from "@/components/TodoList";
-
+import { todoItems } from "@/lib/data";
 import { Card } from "@/components/ui/card";
 import { latestTransactions, popularContent } from "@/lib/data";
 
@@ -20,7 +20,7 @@ const Homepage = () => {
         <AppPieChart />
       </div>
       <div className="bg-primary-foreground p-4 rouded-lg ">
-        <TodoList />
+        <TodoList text="Todos" todos={todoItems} />
       </div>
       <div className="bg-primary-foreground p-4 rouded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2">
         <AppAreaChart />
