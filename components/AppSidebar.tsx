@@ -143,14 +143,20 @@ const AppSidebar = () => {
       <SidebarHeader className="border-b border-sidebar-border">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+            <SidebarMenuButton
+              asChild
+              size="lg"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            >
               <Link href="/" className="flex items-center gap-2 font-semibold">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Zap className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">Shadcn Pro</span>
-                  <span className="truncate text-xs text-muted-foreground">Enterprise</span>
+                  <span className="truncate text-xs text-muted-foreground">
+                    Enterprise
+                  </span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -166,8 +172,8 @@ const AppSidebar = () => {
           <SidebarMenu>
             {mainNavItems.map((item) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton 
-                  asChild 
+                <SidebarMenuButton
+                  asChild
                   isActive={item.isActive}
                   tooltip={item.title}
                 >
@@ -224,7 +230,10 @@ const AppSidebar = () => {
                   {recentProjects.map((project) => (
                     <SidebarMenuItem key={project.title}>
                       <SidebarMenuButton asChild tooltip={project.title}>
-                        <Link href={project.url} className="flex items-center gap-2">
+                        <Link
+                          href={project.url}
+                          className="flex items-center gap-2"
+                        >
                           <project.icon className="size-4" />
                           <span className="truncate">{project.title}</span>
                         </Link>
@@ -269,7 +278,9 @@ const AppSidebar = () => {
                   </div>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">John Doe</span>
-                    <span className="truncate text-xs text-muted-foreground">john@company.com</span>
+                    <span className="truncate text-xs text-muted-foreground">
+                      john@company.com
+                    </span>
                   </div>
                   <ChevronUp className="ml-auto size-4" />
                 </SidebarMenuButton>
@@ -288,7 +299,7 @@ const AppSidebar = () => {
                   <Settings className="size-4" />
                   Settings
                 </DropdownMenuItem>
-                <DropdownMenuItem className="gap-2 text-red-600">
+                <DropdownMenuItem variant="destructive">
                   <LogOut className="size-4" />
                   Sign out
                 </DropdownMenuItem>
