@@ -71,14 +71,24 @@ interface MenuGroup {
 const mainNavItems: MenuItem[] = [
   {
     title: "Dashboard",
-    url: "/dashboard",
-    icon: LayoutDashboard,
+    url: "/",
+    icon: Home,
     isActive: true,
   },
   {
-    title: "Projects",
-    url: "/projects",
-    icon: FolderOpen,
+    title: "Payments",
+    url: "/payments",
+    icon: CreditCard,
+  },
+  {
+    title: "Users",
+    url: "/users",
+    icon: Users,
+  },
+  {
+    title: "Test User",
+    url: "/users/test",
+    icon: UserIcon,
   },
   {
     title: "Analytics",

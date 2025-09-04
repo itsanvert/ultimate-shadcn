@@ -95,3 +95,4 @@ export const todoItems: todos[] = [
   { id: "item7", text: "Update documentation" },
   { id: "item8", text: "Fix bugs in dashboard" },
 ];
+
